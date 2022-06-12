@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="starter-template">
+        <table>
+            <thead>
+            <tr>
+                <th> First name </th>
+                <th> Last name </th>
+                <th> Profile link </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${users.empty}">
+                <td colspan="2"> No Users Available </td>
+            </tr>
+            <tr th:each="user : ${users}">
+                <td><span th:text="${user.firstName}"> - </span></td>
+                <td><span th:text="${user.lastName}"> - </span></td>
+                <td><a th:href="@{/user/} + ${user.id}">View</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<!-- /.container -->
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

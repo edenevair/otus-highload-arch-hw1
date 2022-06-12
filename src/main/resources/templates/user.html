@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="starter-template">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Profile</h3>
+            </div>
+            <div class="list-group">
+                <p class="list-group-item">
+                    <span>ID</span>:
+                    <span th:text="${user.id}">-</span>
+                </p>
+                <p class="list-group-item">
+                    <span>First name</span>:
+                    <span th:text="${user.firstName}">-</span>
+                </p>
+                <p class="list-group-item">
+                    <span>Last name</span>:
+                    <span th:text="${user.lastName}">-</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container -->
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

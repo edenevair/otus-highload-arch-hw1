@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: otus-architecture-hw1
+  datasource:
+    url: jdbc:mysql://localhost:33306/hw1
+    username: otus_user
+    password: 12345678
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  flyway:
+    enabled: true
+logging:
+  level:
+    ROOT: debug

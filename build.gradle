@@ -33,6 +33,7 @@ dependencies {
 	implementation 'org.webjars:bootstrap:3.3.7'
 	implementation 'javax.validation:validation-api'
 
+	implementation 'com.google.guava:guava:11.0.2'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'

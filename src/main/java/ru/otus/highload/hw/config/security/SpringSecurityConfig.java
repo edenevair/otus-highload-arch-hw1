@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
 @Configuration
@@ -18,15 +19,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
 
+//    @Autowired
+//    private UserDetailsService userDetailsService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http.csrf().disable()
                 .authorizeRequests()
                     .antMatchers("/", "/index", "/about").permitAll()
-                    .antMatchers("/admin/**").hasAnyRole("ADMIN")
-                    .antMatchers("/user/**").hasAnyRole("USER")
-                    .antMatchers("/user-list/**").hasAnyRole("USER")
+                    .antMatchers("/admin/**").hasAnyAuthority("ADMIN")
+                    .antMatchers("/user/**").hasAnyAuthority("USER")
+                    .antMatchers("/user-list/**").hasAnyAuthority("USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -38,13 +42,5 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
-    }
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user").password("{noop}1234").roles("USER")
-                .and()
-                .withUser("admin").password("{noop}1234").roles("ADMIN");
     }
 }

@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import ru.otus.highload.hw.dao.UserMapper;
 import ru.otus.highload.hw.model.User;
 
-import java.util.logging.Logger;
-
 @Controller
 @RequiredArgsConstructor
 public class UserController {

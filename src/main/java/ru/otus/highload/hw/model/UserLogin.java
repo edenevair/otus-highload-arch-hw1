@@ -1,6 +1,7 @@
 package ru.otus.highload.hw.model;
 
 import com.google.common.base.Preconditions;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,6 +14,7 @@ import java.util.Collections;
 
 @NoArgsConstructor
 @Getter
+@Builder
 public class UserLogin implements UserDetails {
 
     private Long id;
@@ -21,12 +23,16 @@ public class UserLogin implements UserDetails {
 
     private String password;
 
-    public UserLogin(Long id, String login, String password) {
+    private Long userId;
+
+    public UserLogin(Long id, String login, String password, Long userId) {
         Preconditions.checkArgument(StringUtils.hasText(login), "login is required");
         Preconditions.checkArgument(StringUtils.hasText(password), "password is required");
+        Preconditions.checkArgument(userId != null, "User id is required");
         this.id = id;
         this.login = login;
         this.password = password;
+        this.userId = userId;
     }
 
     @Override

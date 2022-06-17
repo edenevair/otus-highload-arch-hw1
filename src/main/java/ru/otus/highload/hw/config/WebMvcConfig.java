@@ -10,7 +10,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/css/**").addResourceLocations("/css/");
+     //   registry.addResourceHandler("/css/**").addResourceLocations("/css/");
     }
 
     @Override
@@ -23,5 +23,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/user-list").setViewName("user-list");
         registry.addViewController("/about").setViewName("about");
         registry.addViewController("/403").setViewName("/error/403");
+        registry.addViewController("/sign-up").setViewName("sign-up");
     }
 }

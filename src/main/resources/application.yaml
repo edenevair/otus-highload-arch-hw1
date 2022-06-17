@@ -8,6 +8,11 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   flyway:
     enabled: true
+  security:
+    user:
+      name: admin
+      password: 123456
+      roles: ADMIN,USER
 logging:
   level:
     ROOT: debug

@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import ru.otus.highload.hw.model.City;
 
+import java.util.List;
+
 @Mapper
 public interface CityMapper {
 
@@ -15,4 +17,11 @@ public interface CityMapper {
             @Result(property = "name", column = "name")
     })
     City findById(Long id);
+
+    @Select("SELECT id, name FROM cities")
+    @Results(value = {
+            @Result(property = "id", column = "id"),
+            @Result(property = "name", column = "name")
+    })
+    List<City> findAll();
 }

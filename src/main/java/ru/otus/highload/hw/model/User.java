@@ -8,32 +8,50 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.List;
-
+/**
+ * Сущность Пользователь
+ */
 @Builder
 @Getter
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "id")
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
 
+    /**
+     * Идентификатор
+     */
     @Setter
     private Long id;
 
+    /**
+     * Имя
+     */
     private String firstName;
 
+    /**
+     * Фамилия
+     */
     private String lastName;
 
+    /**
+     * Возраст
+     */
     private Integer age;
 
+    /**
+     * Пол
+     */
     private Gender gender;
 
-    private List<String> interests;
+    /**
+     * Интересы
+     */
+    private String interests;
 
+    /**
+     * Город
+     */
     private City city;
-
-    private String login;
-
-    private String password;
 }

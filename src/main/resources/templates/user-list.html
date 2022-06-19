@@ -1,20 +1,26 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+
+<div th:replace="fragments/header :: header"/>
 
 <div class="container">
 
     <div class="starter-template">
-        <table>
+        <table class="user-list">
             <thead>
-            <tr>
-                <th> First name </th>
-                <th> Last name </th>
-                <th> Profile link </th>
-            </tr>
-            </thead>
+                <tr>
+                    <th> First name </th>
+                    <th> Last name </th>
+                    <th> City </th>
+                    <th> Friend </th>
+                    <th> Profile link </th>
+                </tr>
+            <thead>
             <tbody>
             <tr th:if="${users.empty}">
                 <td colspan="2"> No Users Available </td>
@@ -22,15 +28,25 @@
             <tr th:each="user : ${users}">
                 <td><span th:text="${user.firstName}"> - </span></td>
                 <td><span th:text="${user.lastName}"> - </span></td>
-                <td><a th:href="@{/user/} + ${user.id}">View</a></td>
+                <td><span th:text="${user.cityName}"> - </span></td>
+                <td align="center">
+                    <form method="POST" th:if="${!user.isCurrentUser and !user.isFriend}"
+                          th:action="@{/user/friends/} + ${user.id}" style="display: inline-block;">
+                        <button type="submit" name="submit" value="value" class="link-button"><i class="fa fa-user-plus"></i></button>
+                    </form>
+                    <i class="fa fa-check" th:if="${!user.isCurrentUser and user.isFriend}"></i>
+                </td>
+                <td align="center">
+                    <form method="GET" th:action="@{/user/} + ${user.id}" style="display: inline-block;" >
+                        <button type="submit" name="submit" value="value" class="link-button"><i class="fa fa-id-card"></i></button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
 
 </div>
-<!-- /.container -->
-<div th:replace="fragments/footer :: footer"/>
 
 </body>
 </html>

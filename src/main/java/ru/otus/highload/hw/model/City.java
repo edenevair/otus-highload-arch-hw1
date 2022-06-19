@@ -9,7 +9,7 @@ import lombok.ToString;
 import org.springframework.util.StringUtils;
 
 /**
- * Cities directory entry
+ * Справочная сущность - Город
  */
 @NoArgsConstructor
 @ToString
@@ -17,10 +17,14 @@ import org.springframework.util.StringUtils;
 @Builder
 @Getter
 public class City {
-    // unique identifier
+    /**
+     * Идентификатор
+     */
     private Long id;
 
-    // name of the city
+    /**
+     * Название города
+     */
     private String name;
 
     public City(Long id, String name) {

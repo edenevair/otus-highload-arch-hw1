@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @Getter
 public class FriendshipRequestView {
 
+    private Long id;
+
     private User user;
 
     private FriendshipStatus status;

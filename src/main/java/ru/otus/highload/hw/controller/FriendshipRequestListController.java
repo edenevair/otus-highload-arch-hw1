@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import ru.otus.highload.hw.dao.FriendshipMapper;
 import ru.otus.highload.hw.dao.UserMapper;
 import ru.otus.highload.hw.model.Friendship;
@@ -27,7 +29,7 @@ public class FriendshipRequestListController {
     private final SecurityService securityService;
 
     @GetMapping("/friendship-request-list")
-    public String productPage(Model model){
+    public String friendshipRequestsPage(Model model){
         User currentUser = securityService.getCurrentUserId();
 
         List<FriendshipRequestView> requestViews = friendshipMapper.findOpenRequestForUser(currentUser);
@@ -37,5 +39,19 @@ public class FriendshipRequestListController {
         return "/friendship-request-list";
     }
 
+    @PostMapping("/friendship/{id}/accept")
+    public String acceptFriendshipRequest(@PathVariable("id") long requestId) {
+        int updatedRows = friendshipMapper.acceptRequest(requestId);
+        Preconditions.checkState(updatedRows > 0, "не удалось принять запрос на дружбу");
 
+        return "redirect:/friendship-request-list";
+    }
+
+    @PostMapping("/friendship/{id}/reject")
+    public String rejectFriendshipRequest(@PathVariable("id") long requestId) {
+        int updatedRows = friendshipMapper.rejectRequest(requestId);
+        Preconditions.checkState(updatedRows > 0, "не удалось отклонить запрос на дружбу");
+
+        return "redirect:/friendship-request-list";
+    }
 }

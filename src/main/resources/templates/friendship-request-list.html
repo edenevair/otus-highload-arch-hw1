@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+<div class="container">
+
+    <div class="starter-template">
+        <h1>My requests</h1>
+        <table class="entity-list-page-wide">
+            <thead>
+                <tr>
+                    <th> Status </th>
+                    <th> Is to me </th>
+                    <th> First name </th>
+                    <th> Last name </th>
+                    <th> City </th>
+                </tr>
+            <thead>
+            <tbody>
+            <tr th:if="${requests.empty}">
+                <td colspan="2"> No Users Available </td>
+            </tr>
+            <tr th:each="request : ${requests}">
+                <td th:align="center">
+                    <i class="fa fa-clock" th:if="${request.status.name == 'UNCONFIRMED' and !request.isRequestedByUser}"></i>
+                    <i class="fa fa-ban" th:if="${request.status.name == 'REJECTED'}"></i>
+                    <form method="POST" th:if="${request.isRequestedByUser and request.status.name != 'REJECTED'}"
+                          th:action="@{/friendship/} + ${request.id} + @{/accept}" style="display: inline-block;">
+                        <button type="submit" name="submit" value="value" class="link-button"><i class="fa fa-plus"></i></button>
+                    </form>
+                    <form method="POST" th:if="${request.isRequestedByUser and request.status.name != 'REJECTED'}"
+                          th:action="@{/friendship/} + ${request.id} + @{/reject}" style="display: inline-block;">
+                        <button type="submit" name="submit" value="value" class="link-button"><i class="fa fa-minus"></i></button>
+                    </form>
+                </td>
+                <td th:align="center"<span th:text="${request.isRequestedByUser}"> - </span></td>
+                <td><span th:text="${request.user.firstName}"> - </span></td>
+                <td><span th:text="${request.user.lastName}"> - </span></td>
+                <td th:align="center"><span th:text="${request.user.city.name}"> - </span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

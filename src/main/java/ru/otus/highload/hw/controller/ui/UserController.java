@@ -1,4 +1,4 @@
-package ru.otus.highload.hw.controller;
+package ru.otus.highload.hw.controller.ui;
 
 import com.google.common.base.Preconditions;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +36,7 @@ public class UserController {
      * @return
      */
     @GetMapping({"/", "/user"})
-    public String productPage(Authentication authentication, Model model){
+    public String userPage(Authentication authentication, Model model){
         UserLogin userLogin = (UserLogin)authentication.getPrincipal();
         User user = userMapper.findById(userLogin.getUserId());
         model.addAttribute("user", user);
@@ -52,7 +52,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/user/{id}")
-    public String productPage(@PathVariable("id") long id, Model model){
+    public String userPageById(@PathVariable("id") long id, Model model){
         User user = userMapper.findById(id);
         model.addAttribute("user", user);
         initFriends(model, user);
@@ -74,6 +74,4 @@ public class UserController {
         List<User> friends = userMapper.findUserFriends(user);
         model.addAttribute("friends", friends);
     }
-
-
 }

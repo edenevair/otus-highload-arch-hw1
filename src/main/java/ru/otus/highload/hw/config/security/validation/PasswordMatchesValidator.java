@@ -1,6 +1,6 @@
 package ru.otus.highload.hw.config.security.validation;
 
-import ru.otus.highload.hw.controller.RegistrationController;
+import ru.otus.highload.hw.controller.ui.RegistrationController;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

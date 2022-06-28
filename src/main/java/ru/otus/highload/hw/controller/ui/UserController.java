@@ -1,4 +1,4 @@
-package ru.otus.highload.hw.controller;
+package ru.otus.highload.hw.controller.ui;
 
 import com.google.common.base.Preconditions;
 import lombok.RequiredArgsConstructor;
@@ -74,6 +74,4 @@ public class UserController {
         List<User> friends = userMapper.findUserFriends(user);
         model.addAttribute("friends", friends);
     }
-
-
 }

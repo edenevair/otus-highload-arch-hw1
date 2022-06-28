@@ -1,4 +1,4 @@
-package ru.otus.highload.hw.controller;
+package ru.otus.highload.hw.controller.ui;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

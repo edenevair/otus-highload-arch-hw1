@@ -38,6 +38,28 @@ public interface UserMapper {
     User findById(Long id);
 
     /**
+     * Найти пользователей по префиксу имени и фамилии одновременно
+     * @param fNamePrefix
+     * @param lNamePrefix
+     * @return
+     */
+    @Select("SELECT id, first_name, last_name, age, gender, city_id, interests " +
+            "FROM users " +
+            "WHERE first_name LIKE #{fNamePrefix} AND last_name LIKE #{lNamePrefix} " +
+            "ORDER BY id LIMIT 50")
+    @Results(value = {
+            @Result(property = "id", column = "id"),
+            @Result(property = "firstName", column = "first_name"),
+            @Result(property = "lastName", column = "last_name"),
+            @Result(property = "age", column = "age"),
+            @Result(property = "gender", column = "gender"),
+            @Result(property = "interests", column = "interests"),
+            @Result(property="city", column="city_id",
+                    one=@One(select="ru.otus.highload.hw.dao.CityMapper.findById"))
+    })
+    List<User> findByNamePrefix(String fNamePrefix, String lNamePrefix);
+
+    /**
      * Найти всех пользователей
      * @return
      */

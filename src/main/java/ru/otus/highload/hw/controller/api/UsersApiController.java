@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.otus.highload.hw.controller.api.dto.FriendshipRequestDto;
 import ru.otus.highload.hw.controller.api.dto.NewUserDto;
@@ -46,6 +47,18 @@ public class UsersApiController {
     @GetMapping(value = "/api/v1/users", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ListDataHolder> findAllUsers() {
         List<User> allUsers = userMapper.findAll();
+        ListDataHolder<User> dto = new ListDataHolder(allUsers);
+        return ResponseEntity.ok(dto);
+    }
+
+    /**
+     * Получить всех пользователей
+     * @return
+     */
+    @GetMapping(value = "/api/v1/users/filter", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ListDataHolder> findAllUsersWithNamePrefix(@RequestParam(value = "fNamePrefix", required = true) String fNamePref,
+                                                                     @RequestParam(value = "lNamePrefix", required = true) String lNamePref) {
+        List<User> allUsers = userMapper.findByNamePrefix(fNamePref + "%", lNamePref + "%");
         ListDataHolder<User> dto = new ListDataHolder(allUsers);
         return ResponseEntity.ok(dto);
     }

@@ -15,4 +15,4 @@ spring:
       roles: ADMIN,USER
 logging:
   level:
-    ROOT: debug
+    ROOT: info

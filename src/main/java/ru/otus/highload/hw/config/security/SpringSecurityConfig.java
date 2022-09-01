@@ -1,6 +1,7 @@
 package ru.otus.highload.hw.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 @Configuration
 @EnableWebSecurity
@@ -31,6 +33,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/login", "/registration").permitAll()
                    // .antMatchers("/api/**").hasAnyAuthority("USER")
                     .antMatchers("/user/**").hasAnyAuthority("USER")
+                    .antMatchers("/news/**").hasAnyAuthority("USER")
                     .antMatchers("/friendship-request-list/**").hasAnyAuthority("USER")
                     .antMatchers("/user-list/**").hasAnyAuthority("USER")
                 .anyRequest().authenticated()
@@ -49,5 +52,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
+        return new ServletListenerRegistrationBean<>(new HttpSessionEventPublisher());
     }
 }

@@ -66,4 +66,16 @@ public interface FriendshipMapper {
             @Result(column = "isRequestedByUser", property = "isRequestedByUser"),
     })
     List<FriendshipRequestView> findOpenRequestForUser(User user);
+
+    @Select("select id," +
+            "    IF(direction = 'RIGHT', user2_id, user1_id) as user_id,\n" +
+            "    status,\n" +
+            "    IF(direction = 'RIGHT', user2_id, user1_id) = #{id} as isRequestedByUser\n" +
+            "from friendship\n" +
+            "where (user1_id = #{id} or user2_id = #{id})")
+    @Results({
+            @Result(column = "user_id",
+                    one=@One(select="ru.otus.highload.hw.dao.UserMapper.findById"))
+    })
+    List<User> findSubscriptionForUsers(User user);
 }

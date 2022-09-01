@@ -110,3 +110,23 @@ a.button-small {
     text-decoration: none;
     color: initial;
 }
+
+.news-post-panel
+{
+    border: solid;
+    border-width: 1px;
+    border-color: #B1EEB1FF;
+    margin-bottom: 20px;
+}
+
+.mainbody
+{
+    width: 500px;
+}
+
+
+.panel-header
+{
+    width: 100%;
+    background-color: #B1EEB1FF;
+}

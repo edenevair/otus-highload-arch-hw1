@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
+import ru.otus.highload.hw.config.ServerInitializer;
 import ru.otus.highload.hw.config.security.validation.PasswordMatches;
 import ru.otus.highload.hw.dao.CityMapper;
 import ru.otus.highload.hw.dao.UserLoginMapper;
@@ -42,6 +45,7 @@ import java.util.Optional;
  */
 @Controller
 @RequiredArgsConstructor
+@ConditionalOnMissingBean(ServerInitializer.class)
 public class RegistrationController {
 
     private final UserMapper userMapper;

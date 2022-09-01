@@ -42,7 +42,7 @@ public class UserController {
         model.addAttribute("user", user);
         model.addAttribute("isUserProfile", true);
         initFriends(model, user);
-        return "/user";
+        return "user";
     }
 
     /**
@@ -56,7 +56,7 @@ public class UserController {
         User user = userMapper.findById(id);
         model.addAttribute("user", user);
         initFriends(model, user);
-        return "/user";
+        return "user";
     }
 
     @PostMapping("/user/friends/{friendId}")

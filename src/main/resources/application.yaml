@@ -2,7 +2,7 @@ spring:
   application:
     name: otus-architecture-hw1
   datasource:
-    url: jdbc:mysql://localhost:33306/hw1
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/hw1
     username: otus_user
     password: 12345678
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -16,3 +16,15 @@ spring:
 logging:
   level:
     ROOT: info
+
+mq:
+  login: admin
+  password: ${RABBIT_PASS:admin}
+  host: ${RABBIT_HOST:localhost}
+  port: 5672
+
+server:
+  mode: ${SERVICE_MODE:public}
+  servlet:
+    session:
+      timeout: 10m

@@ -38,7 +38,7 @@ public class UserListController {
 
         model.addAttribute("users", userListItems);
         model.addAttribute("isUserList", true);
-        return "/user-list";
+        return "user-list";
     }
 
     @RequiredArgsConstructor(access = AccessLevel.PRIVATE)

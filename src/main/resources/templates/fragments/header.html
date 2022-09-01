@@ -12,6 +12,7 @@
                 <div class="topnav">
                     <a th:href="@{/user}" th:classappend="${isUserProfile != null ? 'active' : ''}">My profile</a>
                     <a th:href="@{/user-list}" th:classappend="${isUserList != null ? 'active' : ''}">Users</a>
+                    <a th:href="@{/news}" th:classappend="${isWall != null ? 'active' : ''}">News</a>
                     <a th:href="@{/friendship-request-list}" th:classappend="${isFriendshipRequestList != null ? 'active' : ''}">Friendship requests</a>
                     <a th:href="@{/logout}">Sign Out</a>
                     <div class="topnav-userinfo">

@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 
 /**
  * Сущность Пользователь
@@ -54,4 +55,8 @@ public class User {
      * Город
      */
     private City city;
+
+    public String buildFio() {
+        return String.format("%s %s", firstName, lastName);
+    }
 }

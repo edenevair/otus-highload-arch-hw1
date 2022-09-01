@@ -1,0 +1,52 @@
+version: '3.7'
+
+services:
+  master_db:
+    image: mysql
+    platform: "linux/x86_64/v8"
+    container_name: master_db
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - '33306:3306'
+    environment:
+      MYSQL_USER: otus_user
+      MYSQL_PASSWORD: 12345678
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_DATABASE: hw1
+    networks:
+      - social_network
+
+  slave_db1:
+    image: mysql
+    platform: "linux/x86_64/v8"
+    container_name: slave_db_1
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - '33307:3306'
+    environment:
+      MYSQL_USER: otus_user
+      MYSQL_PASSWORD: 12345678
+      MYSQL_ROOT_PASSWORD: pa$$w0rd
+      MYSQL_DATABASE: hw1
+    networks:
+      - social_network
+
+  slave_db2:
+    image: mysql
+    platform: "linux/x86_64/v8"
+    container_name: slave_db_2
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - '33308:3306'
+    environment:
+      MYSQL_USER: otus_user
+      MYSQL_PASSWORD: 12345678
+      MYSQL_ROOT_PASSWORD: pa$$w0rd
+      MYSQL_DATABASE: hw1
+    networks:
+      - social_network
+
+networks:
+  social_network:
+    name: social_network
+    driver: bridge

@@ -24,6 +24,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-amqp'
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
 
 	implementation 'org.flywaydb:flyway-core:8.4.4'
 	implementation 'org.flywaydb:flyway-mysql:8.4.4'
@@ -45,4 +47,36 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+jar {
+	manifest {
+		attributes(
+				'Main-Class': 'ru.otus.highload.hw.OtusHighloadArchHw1Application'
+		)
+	}
+}
+
+bootJar {
+	archiveName = 'app.jar'
+}
+
+task prepareImage {
+	group 'docker'
+	dependsOn(bootJar)
+
+	doLast {
+		println 'Copying jar...'
+		copy {
+			from 'build/libs/app.jar'
+			into "docker/lib"
+		}
+		println 'Building image...'
+		exec {
+			workingDir "docker"
+			executable 'docker'
+			args 'build', '-t', 'edenevair/otus-hw', './'
+		}
+		println 'Done!'
+	}
 }

@@ -36,7 +36,7 @@ public class FriendshipRequestListController {
 
         model.addAttribute("requests", requestViews);
         model.addAttribute("isFriendshipRequestList", true);
-        return "/friendship-request-list";
+        return "friendship-request-list";
     }
 
     @PostMapping("/friendship/{id}/accept")

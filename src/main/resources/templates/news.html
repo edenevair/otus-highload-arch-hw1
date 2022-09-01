@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+<div class="container">
+
+    <div class="starter-template">
+        <form action="/news" th:object="${newItem}" method="POST" enctype="utf8">
+            <div c>
+                <label class="registration-label">Content</label>
+                <input th:field="*{content}" required/>
+                <p th:each="error: ${#fields.errors('content')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <button type="submit" class="button" >Add new post</button>
+        </form>
+
+        <th:block th:each="item : ${items}">
+            <div class="news-post-panel">
+                <div class="panel-header">
+                    <span th:text="${item.fio + ' posted at ' + item.createdAt}"> - </span>
+                </div>
+                <div class="mainbody">
+                    <span th:text="${item.content}"> - </span>
+                </div>
+            </div>
+        </th:block>
+    </div>
+
+</div>
+
+</body>
+</html>

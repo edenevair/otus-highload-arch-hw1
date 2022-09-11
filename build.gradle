@@ -26,6 +26,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-amqp'
 	implementation 'org.springframework.boot:spring-boot-starter-cache'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+	//implementation 'org.springframework.security:spring-security-messaging:5.7.1'
 
 	implementation 'org.flywaydb:flyway-core:8.4.4'
 	implementation 'org.flywaydb:flyway-mysql:8.4.4'

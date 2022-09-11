@@ -6,6 +6,7 @@ import lombok.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +17,7 @@ import ru.otus.highload.hw.model.User;
 import ru.otus.highload.hw.news.NewsScrollerService;
 import ru.otus.highload.hw.service.SecurityService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.time.Instant;
@@ -43,7 +45,7 @@ public class NewsScrollerUiController {
      * @return
      */
     @GetMapping("/news")
-    public String productPage(Model model){
+    public String productPage(Model model, HttpServletRequest request){
 
         User currentUser = securityService.getCurrentUserId();
         List<NewsScrollerItemDto> wallItemDtos = scrollerService.findLastWallItems(currentUser.getId())
@@ -57,8 +59,24 @@ public class NewsScrollerUiController {
                 currentUser.getFirstName() + " " + currentUser.getLastName()));
 
         model.addAttribute("isWall", true);
+        model.addAttribute("clientId", currentUser.getId());
+        model.addAttribute("baseUrl", "ws://" + request.getServerName() + ":" + request.getServerPort());
 
         return "news";
+    }
+
+    @GetMapping("/news/actual")
+    public String getEventCount(ModelMap map) {
+        User currentUser = securityService.getCurrentUserId();
+        List<NewsScrollerItemDto> wallItemDtos = scrollerService.findLastWallItems(currentUser.getId())
+                .stream()
+                .map(wi -> NewsScrollerItemDto.of(wi.getContent(),
+                        DATE_TIME_FORMATTER.format(wi.getCreatedAt().atZone(ZoneId.systemDefault())), wi.getFio()))
+                .collect(Collectors.toList());
+
+        map.addAttribute("items", wallItemDtos);
+
+        return "news :: #newsScroller";
     }
 
     /**

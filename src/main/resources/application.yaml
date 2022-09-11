@@ -19,7 +19,7 @@ logging:
 
 mq:
   login: admin
-  password: ${RABBIT_PASS:admin}
+  password: ${RABBIT_PASS:dOgdFn237cd}
   host: ${RABBIT_HOST:localhost}
   port: 5672
 

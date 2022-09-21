@@ -1,0 +1,80 @@
+version: "3.8"
+services:
+  db:
+    image: mysql
+    container_name: otus-mysql-hw4
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_USER: otus_user
+      MYSQL_PASSWORD: 12345678
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_DATABASE: hw1
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+
+  rabbit-1:
+    image: rabbitmq:management
+    hostname: rabbit-1
+    ports:
+      - "5671:5672"
+      - "15671:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=dOgdFn237cd
+      - RABBITMQ_CONFIG_FILE=/config/rabbitmq
+      - RABBITMQ_ERLANG_COOKIE=ETOBVBEFXUPGETFECHSQ
+    volumes:
+      - ./rabbit/r-conf-1/:/config/
+
+  rabbit-2:
+    image: rabbitmq:management
+    hostname: rabbit-2
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=dOgdFn237cd
+      - RABBITMQ_CONFIG_FILE=/config/rabbitmq
+      - RABBITMQ_ERLANG_COOKIE=ETOBVBEFXUPGETFECHSQ
+    volumes:
+      - ./rabbit/r-conf-2/:/config/
+
+  rabbit-3:
+    image: rabbitmq:management
+    hostname: rabbit-3
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=dOgdFn237cd
+      - RABBITMQ_CONFIG_FILE=/config/rabbitmq
+      - RABBITMQ_ERLANG_COOKIE=ETOBVBEFXUPGETFECHSQ
+    volumes:
+      - ./rabbit/r-conf-3/:/config/
+
+  social-net:
+    image: edenevair/otus-hw
+    platform: linux/amd64
+    depends_on:
+      db:
+        condition: service_healthy
+      rabbit-1:
+        condition: service_started
+      rabbit-2:
+        condition: service_started
+      rabbit-3:
+        condition: service_started
+    ports:
+      - "80:8080"
+    environment:
+      DB_HOST: db
+      RABBIT_HOST: rabbit-1
+      RABBIT_PASS: dOgdFn237cd
+      SERVICE_MODEL: public
+

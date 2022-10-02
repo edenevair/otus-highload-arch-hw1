@@ -1,6 +1,14 @@
 spring:
   application:
     name: otus-architecture-hw1
+  data:
+    mongodb:
+      uri: mongodb://otus_hw_user:12345678@127.0.0.1:27117,127.0.0.1:27118/otus_hw
+      username: otus_hw_user
+      password: 12345678
+      database: otus_hw
+      host: localhost
+      port: 27017
   datasource:
     url: jdbc:mysql://${DB_HOST:localhost}:3306/hw1
     username: otus_user

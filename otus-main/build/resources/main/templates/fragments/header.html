@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+</head>
+<body>
+<div th:fragment="header" class="header-menu">
+    <div class="container">
+        <header>
+            <span sec:authorize="isAuthenticated()">
+                <div class="topnav">
+                    <a th:href="@{/user}" th:classappend="${isUserProfile != null ? 'active' : ''}">My profile</a>
+                    <a th:href="@{/user-list}" th:classappend="${isUserList != null ? 'active' : ''}">Users</a>
+                    <a th:href="@{/news}" th:classappend="${isWall != null ? 'active' : ''}">News</a>
+                    <a th:href="@{/friendship-request-list}" th:classappend="${isFriendshipRequestList != null ? 'active' : ''}">Friendship requests</a>
+                    <a th:href="@{/logout}">Sign Out</a>
+                    <div class="topnav-userinfo">
+                        Logged user: <span sec:authentication="name"></span>
+                        Roles: <span sec:authentication="principal.authorities"></span>
+                    </div>
+                </div>
+            </span>
+        </header>
+    </div>
+
+</div>
+</body>
+</html>

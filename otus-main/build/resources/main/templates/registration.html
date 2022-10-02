@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+<div class="container">
+
+    <div class="starter-template" style="margin: auto; width: 400px;">
+        <h1>Registration page</h1>
+
+        <form action="/registration" th:object="${user}" method="POST" enctype="utf8">
+            <h2>Personal info</h2>
+            <div>
+                <label class="registration-label">First name</label>
+                <input th:field="*{firstName}" required/>
+                <p th:each="error: ${#fields.errors('firstName')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <div>
+                <label class="registration-label">Last name</label>
+                <input th:field="*{lastName}"  />
+                <p th:each="error: ${#fields.errors('lastName')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <div>
+                <label class="registration-label">Age</label>
+                <input th:field="*{age}" type="number" min="18" max="120" step="1" required/>
+                <p th:each="error: ${#fields.errors('age')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <div>
+                <label class="registration-label">Gender</label>
+                <select name="color" th:field="*{gender}" required>
+                    <option th:each="genderOpt : ${T(ru.otus.highload.hw.model.Gender).values()}"
+                            th:value="${genderOpt}" th:text="${genderOpt}"></option>
+                </select>
+                <p th:each="error: ${#fields.errors('gender')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <div>
+                <label class="registration-label">City</label>
+                <select name="color" th:field="*{cityId}" required>
+                    <option th:each="city : ${cities}"
+                            th:value="${city.id}" th:text="${city.name}"></option>
+                </select>
+                <p th:each="error: ${#fields.errors('cityId')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <div>
+                <label class="registration-label">Interests</label>
+                <input th:field="*{interests}" required/>
+                <p th:each="error: ${#fields.errors('cityId')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+
+            <h2>Authorization info</h2>
+            <div>
+                <label class="registration-label">Login</label>
+                <input th:field="*{login}" required/>
+                <p th:each="error : ${#fields.errors('login')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <div>
+                <label class="registration-label">Password</label>
+                <input type="password" th:field="*{password}" required/>
+                <p th:each="error : ${#fields.errors('password')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <div>
+                <label class="registration-label">Confirm password</label>
+                <input type="password" th:field="*{matchingPassword}" required/>
+            </div>
+            <button type="submit" class="button" >Register</button>
+        </form>
+    </div>
+
+</div>
+
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

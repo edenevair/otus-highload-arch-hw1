@@ -11,5 +11,6 @@ import java.util.List;
 public interface ChatRepository extends MongoRepository<Chat, String> {
 
     @Query(value="{$or : [{user1Id: ?0}, {user2Id: ?0}]}", sort="{'updatedAt': -1}")
-    List<Chat> finaChatsForUser(Long user);
+    List<Chat> findChatsForUser(Long user);
+
 }

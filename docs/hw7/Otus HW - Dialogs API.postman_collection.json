@@ -24,12 +24,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/dialogs/",
+							"raw": "http://{{host}}/api/dialogs/",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"dialogs",
@@ -45,12 +44,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/dialogs/?userId=1",
+							"raw": "http://{{host}}/api/dialogs/?userId=1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"dialogs",
@@ -72,12 +70,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/dialogs/63395bc95309e355b93849ae",
+							"raw": "http://{{host}}/api/dialogs/63395bc95309e355b93849ae",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"dialogs",
@@ -102,16 +99,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/dialogs/63395bc95309e355b93849ae/messages",
+							"raw": "http://{{host}}/api/dialogs/6339941086ca3263d401a3d7/messages",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"dialogs",
-								"63395bc95309e355b93849ae",
+								"6339941086ca3263d401a3d7",
 								"messages"
 							]
 						}
@@ -136,16 +132,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/dialogs/63395bc95309e355b93849ae/messages",
+							"raw": "http://{{host}}/api/dialogs/6339941086ca3263d401a3d7/messages",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"dialogs",
-								"63395bc95309e355b93849ae",
+								"6339941086ca3263d401a3d7",
 								"messages"
 							]
 						}
@@ -160,12 +155,11 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/login?password={{Password}}&username={{Login}}",
+					"raw": "http://{{host}}/login?password={{Password}}&username={{Login}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"login"
 					],
@@ -191,12 +185,11 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/logout",
+					"raw": "http://{{host}}/logout",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"logout"
 					]
@@ -235,6 +228,10 @@
 			"key": "Password",
 			"value": "1van0v09238fghw",
 			"type": "string"
+		},
+		{
+			"key": "host",
+			"value": "localhost:80"
 		}
 	]
 }

@@ -1,3 +1,7 @@
 /.gradle/
 /.idea/
-/build/
+/build/*
+**/build/**/*
+**/build/*
+
+/otus-main/docker/lib/app.jar

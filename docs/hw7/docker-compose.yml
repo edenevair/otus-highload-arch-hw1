@@ -27,7 +27,8 @@ services:
   ## Router
   router01:
     image: mongo:6.0.1
-    container_name: router-01
+    container_name: router01
+    hostname: router01
     command: mongos --port 27017 --configdb rs-config-server/configsvr01:27017,configsvr02:27017,configsvr03:27017 --bind_ip_all
     ports:
       - 27117:27017
@@ -35,7 +36,8 @@ services:
       - ./mongo/scripts:/scripts
   router02:
     image: mongo:6.0.1
-    container_name: router-02
+    container_name: router02
+    hostname: router02
     command: mongos --port 27017 --configdb rs-config-server/configsvr01:27017,configsvr02:27017,configsvr03:27017 --bind_ip_all
     volumes:
       - ./mongo/scripts:/scripts
@@ -47,7 +49,7 @@ services:
   ## Config Servers
   configsvr01:
     image: mongo:6.0.1
-    container_name: mongo-config-01
+    container_name: configsvr01
     command: mongod --port 27017 --configsvr --replSet rs-config-server
     volumes:
       - ./mongo/scripts:/scripts
@@ -59,7 +61,7 @@ services:
       - shard03-a
   configsvr02:
     image: mongo:6.0.1
-    container_name: mongo-config-02
+    container_name: configsvr02
     command: mongod --port 27017 --configsvr --replSet rs-config-server
     volumes:
       - ./mongo/scripts:/scripts
@@ -69,7 +71,7 @@ services:
       - configsvr01
   configsvr03:
     image: mongo:6.0.1
-    container_name: mongo-config-03
+    container_name: configsvr03
     command: mongod --port 27017 --configsvr --replSet rs-config-server
     volumes:
       - ./mongo/scripts:/scripts
@@ -167,18 +169,20 @@ services:
     ports:
       - 27130:27017
 
-#  social-net:
-#    image: edenevair/otus-hw
-#    platform: linux/amd64
-#    depends_on:
-#      db:
-#        condition: service_healthy
-#      rabbitmq:
-#        condition: service_started
-#    ports:
-#      - "80:8080"
-#    environment:
-#      DB_HOST: db
-#      RABBIT_HOST: rabbitmq
-#      RABBIT_PASS: dOgdFn237cd
-#      SERVICE_MODEL: public
+  social-net:
+    image: edenevair/otus-hw:hw7
+    container_name: hw7
+    platform: linux/amd64
+    depends_on:
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
+    ports:
+      - "80:8080"
+    environment:
+      DB_HOST: db
+      RABBIT_HOST: rabbitmq
+      RABBIT_PASS: dOgdFn237cd
+      SERVICE_MODEL: public
+      MONGO_URL: "router01:27017,router02:27017"

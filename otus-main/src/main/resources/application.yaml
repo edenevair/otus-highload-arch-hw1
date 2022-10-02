@@ -3,11 +3,11 @@ spring:
     name: otus-architecture-hw1
   data:
     mongodb:
-      uri: mongodb://otus_hw_user:12345678@127.0.0.1:27117,127.0.0.1:27118/otus_hw
+      uri: mongodb://otus_hw_user:12345678@${MONGO_URL}/otus_hw
       username: otus_hw_user
       password: 12345678
       database: otus_hw
-      host: localhost
+      host: router-01
       port: 27017
   datasource:
     url: jdbc:mysql://${DB_HOST:localhost}:3306/hw1
@@ -23,7 +23,7 @@ spring:
       roles: ADMIN,USER
 logging:
   level:
-    ROOT: info
+    ROOT: debud
 
 mq:
   login: admin
